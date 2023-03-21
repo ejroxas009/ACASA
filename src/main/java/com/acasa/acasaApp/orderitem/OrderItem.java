@@ -1,9 +1,10 @@
-package com.acasa.acasaApp.productimage;
+package com.acasa.acasaApp.orderitem;
 
 import java.time.LocalDate;
 
 import com.acasa.acasaApp.products.Products;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,36 +13,33 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class ProductImage {
+public class OrderItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long productImageId;
-	private String url;
-	@ManyToOne
-	@JoinColumn(name = "productId")
-	private Products product;
+	private Long orderItemId;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_productId")
+	private Products products;
+	private int quantity;
 	private LocalDate createdAt;
 	private LocalDate modifiedAt;
-	
-	
-	
-	public Products getProduct() {
-		return product;
+	public Long getOrderItemId() {
+		return orderItemId;
 	}
-	public void setProduct(Products product) {
-		this.product = product;
+	public void setOrderItemId(Long orderItemId) {
+		this.orderItemId = orderItemId;
 	}
-	public Long getProductImageId() {
-		return productImageId;
+	public Products getProducts() {
+		return products;
 	}
-	public void setProductImageId(Long productImageId) {
-		this.productImageId = productImageId;
+	public void setProducts(Products products) {
+		this.products = products;
 	}
-	public String getUrl() {
-		return url;
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setUrl(String url) {
-		this.url = url;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	public LocalDate getCreatedAt() {
 		return createdAt;
@@ -56,6 +54,4 @@ public class ProductImage {
 		this.modifiedAt = modifiedAt;
 	}
 
-	
-	
 }
